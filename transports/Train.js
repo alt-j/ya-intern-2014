@@ -14,11 +14,11 @@
         seat: 'any',
         ...
     }
-    can have filed 'notes'
+    can have filed 'notes', 'name'
  */
-var Train = function (params) {
+API.transports.Train = function (params) {
     try {
-        Train.parent.constructor.call(this, params);
+        API.transports.Train.parent.constructor.call(this, params);
     } catch (e) {
         throw new Error('Train:' + e.message);
     }
@@ -33,7 +33,7 @@ var Train = function (params) {
 /**
  * Train is extend of Transport
  */
-extend(Train, Transport);
+API.utils.extend(API.transports.Train, API.transports.Transport);
 
 /**
  * @method describe
@@ -41,10 +41,9 @@ extend(Train, Transport);
  *
  * @returns {String} description
  */
-Train.prototype.describe = function () {
+API.transports.Train.prototype.describe = function () {
     var desc = [
-        'Из ' + this.from + ' в ' + this.to,
-        'Поезд номер: ' + this.number,
+        'Take train ' + this.number + ' from' + this.from + ' to ' + this.to,
         this.seat === 'any' ? 'Без присвоения мест' : 'Место номер: ' + this.seat
     ].join('. ');
 

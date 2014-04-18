@@ -15,11 +15,11 @@
         seat: 'any',
         ...
     }
-    can have filed 'notes'
+    can have filed 'notes', 'name'
  */
-var Plane = function (params) {
+API.transports.Plane = function (params) {
     try {
-        Plane.parent.constructor.call(this, params);
+        API.transports.Plane.parent.constructor.call(this, params);
     } catch (e) {
         throw new Error('Plane:' + e.message);
     }
@@ -35,7 +35,7 @@ var Plane = function (params) {
 /**
  * Plane is extend of Transport
  */
-extend(Plane, Transport);
+API.utils.extend(API.transports.Plane, API.transports.Transport);
 
 /**
  * @method describe
@@ -43,11 +43,11 @@ extend(Plane, Transport);
  *
  * @returns {String} description
  */
-Plane.prototype.describe = function () {
+API.transports.Plane.prototype.describe = function () {
     var desc = [
-        'Из ' + this.from + ' в ' + this.to,
-        'Рейс номер: ' + this.flight + ', выход: ' + this.gate,
-        this.seat === 'any' ? 'Без присвоения мест' : 'Место номер: ' + this.seat
+        'From ' + this.from + ' take ﬂight ' + this.flight + ' to ' + this.to,
+        'Gate: ' + this.gate,
+        this.seat === 'any' ? 'No seat assignment' : 'Seat: ' + this.seat
     ].join('. ');
 
     if (this.notes) {

@@ -8,15 +8,18 @@
         to: 'B',
         ...
     }
-    can have filed 'notes'
+    can have filed 'notes', 'name'
  */
-var Transport = function (params) {
+API.transports.Transport = function (params) {
     if (params.from && params.to) {
         this.from = params.from;
         this.to = params.to;
 
         if (params.notes) {
-            this.notes = notes;
+            this.notes = params.notes;
+        }
+        if (params.name) {
+            this.name = params.name;
         }
     } else {
         throw new Error('Transport params isn\'t contains one of the required paramters: from, to');
@@ -28,9 +31,10 @@ var Transport = function (params) {
     Prepare description about trips on this transport
  * @returns {String} description
  */
-Transport.prototype.describe = function () {
+API.transports.Transport.prototype.describe = function () {
     return [
-        'Из ' + this.from + ' в ' + this.to,
+        'From ' + this.from + ' to ' + this.to,
+        (this.name ? ' by ' + this.name : ''),
         (this.notes ? '. ' + this.notes : '')
     ].join('');
 };

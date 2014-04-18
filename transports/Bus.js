@@ -13,11 +13,11 @@
         seat: 'any',
         ...
     }
-    can have filed 'notes'
+    can have filed 'notes', 'name'
  */
-var Bus = function (params) {
+API.transports.Bus = function (params) {
     try {
-        Bus.parent.constructor.call(this, params);
+        API.transports.Bus.parent.constructor.call(this, params);
     } catch (e) {
         throw new Error('Bus:' + e.message);
     }
@@ -31,7 +31,7 @@ var Bus = function (params) {
 /**
  * Bus is extend of Transport
  */
-extend(Bus, Transport);
+API.utils.extend(API.transports.Bus, API.transports.Transport);
 
 /**
  * @method describe
@@ -39,13 +39,12 @@ extend(Bus, Transport);
  *
  * @returns {String} description
  */
-Bus.prototype.describe = function () {
-    var desc = 'Из ' + this.from + ' в ' + this.to;
-    if (this.seat === 'any') {
-        desc += '. Без присвоения мест';
-    } else {
-        desc += '. Место номер: ' + this.seat;
-    }
+API.transports.Bus.prototype.describe = function () {
+    var desc = [
+        'Take the bus' + (this.name ? ' "' + this.name + '"' : '') + ' from ' + this.from + ' to ' + this.to,
+        this.seat === 'any' ? 'No seat assignment' : 'Seat: ' + this.seat
+    ].join('. ');
+
     if (this.notes) {
         desc += '. ' + this.notes;
     }
