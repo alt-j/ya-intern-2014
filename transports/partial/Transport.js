@@ -1,5 +1,11 @@
 /**
  * @constructor
+    This is parent class of all types transport objects,
+    also this class using, when type isn't declared.
+
+    If you want to add new type of transport,
+    you must create new extend of Transport in API.transports namespace.
+    Notice: name of all constructors must begin with a capital letter
  *
  * @params {Object} params
     must looks like:

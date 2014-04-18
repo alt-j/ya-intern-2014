@@ -5,6 +5,10 @@ var list = [{
     seat: 'any',
     name: 'SkyBus'
 }, {
+    transport: 'aeroexpress',
+    from: 'Moscow Domodedovo',
+    to: 'Moscow'
+}, {
     transport: 'plane',
     from: 'Kiev Borispol',
     to: 'Moscow Domodedovo',
@@ -12,8 +16,4 @@ var list = [{
     gate: 'D1',
     seat: '1A',
     notes: 'Company: Ukrainian International Airlines'
-}, {
-    transport: 'aeroexpress',
-    from: 'Moscow Domodedovo',
-    to: 'Moscow'
 }];
