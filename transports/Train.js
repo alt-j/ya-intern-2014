@@ -14,7 +14,7 @@
         seat: 'any',
         ...
     }
-    can have filed 'notes', 'name'
+    can contain fileds 'notes', 'name'
  */
 API.transports.Train = function (params) {
     try {
@@ -37,7 +37,7 @@ API.utils.extend(API.transports.Train, API.transports.Transport);
 
 /**
  * @method describe
-    Prepare description about trips on this transport
+    Prepare description about trip on this transport
  *
  * @returns {String} description
  */

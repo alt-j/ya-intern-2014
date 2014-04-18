@@ -1,3 +1,6 @@
+/**
+ * @global API
+ */
 var API = new (function () {
     this.utils = { };
     this.transports = { };
@@ -26,6 +29,17 @@ var API = new (function () {
         }
     };
 
+
+    /**
+     * @method getTripDescription
+        Prepare description about trip using list of cards
+     *
+     * @params {Array} list
+        List of cards, each card must contain three main fileds: transport, from, to
+        also card can contain other fields, depends on type of transport
+     *
+     * @returns {String} description
+     */
     this.getTripDescription = function (list) {
         var description = [];
         list.map(function (card) {

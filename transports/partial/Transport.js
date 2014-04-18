@@ -8,7 +8,7 @@
         to: 'B',
         ...
     }
-    can have filed 'notes', 'name'
+    can contain fileds 'notes', 'name'
  */
 API.transports.Transport = function (params) {
     if (params.from && params.to) {
@@ -28,7 +28,7 @@ API.transports.Transport = function (params) {
 
 /**
  * @method describe
-    Prepare description about trips on this transport
+    Prepare description about trip on this transport
  * @returns {String} description
  */
 API.transports.Transport.prototype.describe = function () {
