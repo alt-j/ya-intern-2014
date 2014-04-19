@@ -1,0 +1,25 @@
+{
+    "name": "api",
+    "description": "Geo-Information API",
+
+    "version": "0.0.1",
+
+    "main": "dist/api.js",
+
+    "author": {
+        "name": "Morozov Andrew"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/anmorozov23/ya-intern-2014.git"
+    },
+
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "0.4.2",
+        "grunt-contrib-concat": "~0.4.0",
+        "grunt-contrib-uglify": "0.3.2",
+        "grunt-contrib-watch": "~0.6.1"
+    }
+}

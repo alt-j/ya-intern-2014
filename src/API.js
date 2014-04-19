@@ -43,6 +43,7 @@ var API = new (function () {
     this.getTripDescription = function (list) {
         var description = [];
 
+        // index list
         var indexes = { from: [] },
             keys = { from: [], to: [] };
         for (var i = list.length - 1; i >= 0; i--) {
@@ -61,6 +62,7 @@ var API = new (function () {
             throw new Error('Error: impossible to make a trip from this list');
         }
 
+        // choose first point
         var from = keys.from.filter(function (i) {
             return keys.to.indexOf(i) < 0;
         });
@@ -70,6 +72,7 @@ var API = new (function () {
             from = from[0];
         }
         
+        // describe trip
         (function describe (from) {
             if (indexes.from[from]) {
                 description.push(description.length + '. ' + indexes.from[from].describe());
