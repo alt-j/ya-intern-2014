@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 
-    // Project configuration.
+    // Project config
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
@@ -26,12 +26,12 @@ module.exports = function (grunt) {
         }
     });
 
-    // Load the plugin that provides the "uglify" task.
+    // Load the plugin
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    // Default task(s).
+    // Default task
     grunt.registerTask('default', ['concat', 'uglify', 'watch']);
 
 };

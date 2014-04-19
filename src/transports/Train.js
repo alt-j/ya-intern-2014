@@ -14,20 +14,19 @@
         seat: 'any',
         ...
     }
-    can contain fileds 'notes', 'name'
+    can contain fileds 'notes', 'names'
  */
 API.transports.Train = function (params) {
+
+    this.required = ['seat', 'number'];
+    this.included = [];
+
     try {
         API.transports.Train.parent.constructor.call(this, params);
     } catch (e) {
-        throw new Error('Train:' + e.message);
+        throw new Error('Train: ' + e.message);
     }
-    if (params.number && params.seat) {
-        this.number = params.number;
-        this.seat = params.seat;
-    } else {
-        throw new Error('Train params isn\'t contains one of required paramters: number, seat');
-    }
+
 };
 
 /**
@@ -42,13 +41,10 @@ API.utils.extend(API.transports.Train, API.transports.Transport);
  * @returns {String} description
  */
 API.transports.Train.prototype.describe = function () {
-    var desc = [
-        'Take train ' + this.number + ' from' + this.from + ' to ' + this.to,
-        this.seat === 'any' ? 'Без присвоения мест' : 'Место номер: ' + this.seat
-    ].join('. ');
 
-    if (this.notes) {
-        desc += '. ' + this.notes;
-    }
-    return desc;
+    return 'Take train ' + this.number + (this.name ? ' (' + this.name + ')' : '') +
+        ' from ' + this.from + ' to ' + this.to + '. ' +
+        (this.seat === 'any' ? 'No seat assignment' : 'Seat: ' + this.seat) +
+        (this.notes ? '. ' + this.notes : '');
+
 };

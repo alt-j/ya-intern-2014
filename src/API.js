@@ -1,13 +1,17 @@
 /**
+ * @requires ./transports/*
+ *
  * @global API
  */
 var API = new (function () {
+
     this.utils = { };
     this.transports = { };
 
     var self = this;
 
     var TransportCard = function (params) {
+
         var type,
             transportClass;
 
@@ -27,6 +31,7 @@ var API = new (function () {
             params.name = params.name || type;
             return new self.transports.Transport(params);
         }
+
     };
 
 
@@ -41,6 +46,7 @@ var API = new (function () {
      * @returns {String} description
      */
     this.getTripDescription = function (list) {
+
         var description = [];
 
         // index list
@@ -81,5 +87,6 @@ var API = new (function () {
         })(from);
 
         return description.join('\n');
+
     };
 })();

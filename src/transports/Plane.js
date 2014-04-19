@@ -13,23 +13,22 @@
         flight: 'A123',
         gate: 'A1',
         seat: 'any',
+        baggage: 'Baggage drop at ticket counter 344'
         ...
     }
-    can contain fileds 'notes', 'name'
+    can contain fileds 'notes', 'company'
  */
 API.transports.Plane = function (params) {
+
+    this.required = ['flight', 'gate', 'seat', 'baggage'];
+    this.included = ['company'];
+
     try {
         API.transports.Plane.parent.constructor.call(this, params);
     } catch (e) {
-        throw new Error('Plane:' + e.message);
+        throw new Error('Plane: ' + e.message);
     }
-    if (params.flight && params.gate && params.seat) {
-        this.flight = params.flight;
-        this.gate = params.gate;
-        this.seat = params.seat;
-    } else {
-        throw new Error('Plane params isn\'t contains one of required paramters: flight, gate, seat');
-    }
+
 };
 
 /**
@@ -44,14 +43,11 @@ API.utils.extend(API.transports.Plane, API.transports.Transport);
  * @returns {String} description
  */
 API.transports.Plane.prototype.describe = function () {
-    var desc = [
-        'From ' + this.from + ' take ﬂight ' + this.flight + ' to ' + this.to,
-        'Gate: ' + this.gate,
-        this.seat === 'any' ? 'No seat assignment' : 'Seat: ' + this.seat
-    ].join('. ');
 
-    if (this.notes) {
-        desc += '. ' + this.notes;
-    }
-    return desc;
+    return 'From ' + this.from + ' take ﬂight ' + this.flight +
+        (this.company ? ' by company "' + this.company + '"' : '') + ' to ' + this.to + '. ' +
+        'Gate: ' + this.gate + '. ' +
+        (this.seat === 'any' ? 'No seat assignment' : 'Seat: ' + this.seat) + '. ' +
+        this.baggage + (this.notes ? '. ' + this.notes : '');
+
 };

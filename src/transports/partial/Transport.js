@@ -17,19 +17,28 @@
     can contain fileds 'notes', 'name'
  */
 API.transports.Transport = function (params) {
-    if (params.from && params.to) {
-        this.from = params.from;
-        this.to = params.to;
 
-        if (params.notes) {
-            this.notes = params.notes;
+    var required = ['from', 'to'],
+        included = ['notes', 'name'],
+
+        i = 0;
+
+    this.required = this.required ? required.concat(this.required) : required;
+    this.included = this.included ? included.concat(this.included) : included;
+
+    for (i = this.required.length - 1; i >=0; i--) {
+        if (params[this.required[i]]) {
+            this[this.required[i]] = params[this.required[i]];
+        } else {
+            throw new Error('Transport params isn\'t contain required paramter: ' + this.required[i]);
         }
-        if (params.name) {
-            this.name = params.name;
-        }
-    } else {
-        throw new Error('Transport params isn\'t contains one of the required paramters: from, to');
     }
+    for (i = this.included.length - 1; i >=0; i--) {
+        if (params[this.included[i]]) {
+            this[this.included[i]] = params[this.included[i]];
+        }
+    }
+
 };
 
 /**
@@ -38,9 +47,9 @@ API.transports.Transport = function (params) {
  * @returns {String} description
  */
 API.transports.Transport.prototype.describe = function () {
-    return [
-        'From ' + this.from + ' to ' + this.to,
-        (this.name ? ' by ' + this.name : ''),
-        (this.notes ? '. ' + this.notes : '')
-    ].join('');
+
+    return 'From ' + this.from + ' to ' + this.to +
+        (this.name ? ' by ' + this.name : '') +
+        (this.notes ? '. ' + this.notes : '');
+
 };
