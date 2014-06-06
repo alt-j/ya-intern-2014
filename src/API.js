@@ -3,33 +3,27 @@
  *
  * @global API
  */
-var API = new (function () {
-
-    this.utils = { };
-    this.transports = { };
-
-    var self = this;
+var API = (function () {
 
     var TransportCard = function (params) {
 
-        var type,
-            transportClass;
+        var transportClass;
 
         if (params.transport) {
-            type = params.transport;
-            transportClass = type.charAt(0).toUpperCase() + type.slice(1);
-
-            delete params.transport;
+            transportClass = [
+                params.transport.charAt(0).toUpperCase(),
+                params.transport.slice(1)
+            ].join('');
         } else {
             throw new Error('Card haven\'t type of transport');
         }
 
-        if (self.transports.hasOwnProperty(transportClass) &&
-            typeof self.transports[transportClass] == 'function') {  
-            return new self.transports[transportClass](params);
+        if (API.transports.hasOwnProperty(transportClass) &&
+            API.transports[transportClass].toString().indexOf('function') === 0) {  
+            return new API.transports[transportClass](params);
         } else {
-            params.name = params.name || type;
-            return new self.transports.Transport(params);
+            params.name = params.name || params.transport;
+            return new API.transports.Transport(params);
         }
 
     };
@@ -45,14 +39,17 @@ var API = new (function () {
      *
      * @returns {String} description
      */
-    this.getTripDescription = function (list) {
+    var getTripDescription = function (list) {
 
         var description = [];
 
         // index list
         var indexes = { from: [] },
             keys = { from: [], to: [] };
-        for (var i = list.length - 1; i >= 0; i--) {
+
+        var i, from;
+
+        for (i = list.length - 1; i >= 0; i--) {
             list[i] = new TransportCard(list[i]);
 
             indexes.from[list[i].from] = list[i];
@@ -69,10 +66,10 @@ var API = new (function () {
         }
 
         // choose first point
-        var from = keys.from.filter(function (i) {
+        from = keys.from.filter(function (i) {
             return keys.to.indexOf(i) < 0;
         });
-        if (from.length > 1 || from.length == 0) {
+        if (from.length > 1 || from.length === 0) {
             throw new Error('Error: impossible to make a trip from this list');
         } else {
             from = from[0];
@@ -89,4 +86,11 @@ var API = new (function () {
         return description.join('\n');
 
     };
-})();
+
+    return {
+        utils: { },
+        transports: { },
+        getTripDescription: getTripDescription
+    };
+
+} ());
